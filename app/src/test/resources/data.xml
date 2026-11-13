@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WINDEV_TABLE>
+    <TABLE_CONTENU>
+        <IDPERSONNE>1</IDPERSONNE>
+        <NOM>Dupont</NOM>
+    </TABLE_CONTENU>
+    <TABLE_CONTENU>
+        <IDPERSONNE>2</IDPERSONNE>
+        <NOM>Martin</NOM>
+    </TABLE_CONTENU>
+    <TABLE_CONTENU>
+        <IDPERSONNE>3</IDPERSONNE>
+        <NOM>Benjamin</NOM>
+    </TABLE_CONTENU>
+</WINDEV_TABLE>
