@@ -22,7 +22,7 @@ class PostgreServiceTest {
 
     @Test
     fun should_connect_to_database_when_good_config() {
-        //Assert : déjà fait, variable config
+        //Arrange : déjà fait, variable config
 
         //Act
         val connection = service.connect()
@@ -35,21 +35,28 @@ class PostgreServiceTest {
 
     @Test
     fun should_return_columns_metadata() {
-        //Assert : on récupère la connexion
+        //Arrange : on récupère la connexion
         val connection = service.connect()
 
-        //Act
+        //Act : récupération des infos des tables d'un schema
         val columnsMetaData = service.getColumnsData(connection)
 
-        //Assert
-        for (column in columnsMetaData) {
-            println(column.columnName+" "+column.columnType+" "+column.columnSize+" "+column.columnIsNullable)
-        }
+        //Assert : 45 colonnes à la date du 16/11/2026
+        assertEquals(45, columnsMetaData.size)
     }
 
     @Test
     fun return_one_column_metadata() {
 
+        //Arrange : on récupère la connexion
+        val connection = service.connect()
+
+        //Act : récupération des infos des tables d'un schema
+        val columnsMetaData = service.getColumnsData(connection, "lastname")
+
+        //Assert : lastname est de type varchar à la date du 16/11/2026
+        assertEquals(1, columnsMetaData.size)
+        assertEquals("varchar",columnsMetaData[0].columnType)
     }
 
 }

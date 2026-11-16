@@ -25,5 +25,5 @@ jobs:
       - name: Grant execute permission
         run: chmod +x ./gradlew
 
-      - name: Run tests
+      - name: Run XmlTests
         run: ./gradlew :app:test --tests "*XmlServiceTest"

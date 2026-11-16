@@ -30,6 +30,7 @@ class PostgreService(private val config: PostgreConfig) {
         return PostgreColumn(
             columnName = resultSet.getString("COLUMN_NAME"),
             columnType = resultSet.getString("TYPE_NAME"),
+            jdbcColumnType = resultSet.getInt("DATA_TYPE"),
             columnSize = resultSet.getInt("COLUMN_SIZE"),
             columnIsNullable = resultSet.getString("IS_NULLABLE")
         )
