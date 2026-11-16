@@ -1,20 +1,23 @@
 package net.unotec.app.services
 
+import io.github.cdimascio.dotenv.dotenv
 import net.unotec.app.config.PostgreConfig
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.io.TempDir
 
 class PostgreServiceTest {
-
-    private val config = PostgreConfig(
-        "192.168.102.4",
-        5432,
-        "dolibarr_app",
-        "ADMUN0TEC",
-        "dolibarr24",
-        "public",
-        "llx_adherent")
+    private val dotenv = dotenv {
+        directory = ".."
+        filename = ".env"
+    }
+   private val config = PostgreConfig(
+        dotenv["HOST_TEST"],
+        dotenv["PORT_TEST"].toInt(),
+        dotenv["USER_TEST"],
+        dotenv["MDP_TEST"],
+        dotenv["DATABASE_TEST"],
+        dotenv["SCHEMA_TEST"],
+        dotenv["TABLE_TEST"])
     private val service = PostgreService(config)
 
     @Test
@@ -42,6 +45,11 @@ class PostgreServiceTest {
         for (column in columnsMetaData) {
             println(column.columnName+" "+column.columnType+" "+column.columnSize+" "+column.columnIsNullable)
         }
+    }
+
+    @Test
+    fun return_one_column_metadata() {
+
     }
 
 }
