@@ -10,9 +10,6 @@ jobs:
 
     steps:
 
-      - name: Grant execute permission
-        run: chmod +x ./gradlew
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -24,6 +21,9 @@ jobs:
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
+
+      - name: Grant execute permission
+        run: chmod +x ./gradlew
 
       - name: Run tests
         run: ./gradlew :app:test --tests "*XmlServiceTest"
