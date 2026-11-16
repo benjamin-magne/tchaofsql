@@ -30,3 +30,6 @@ jobs:
 
       - name: Run TypeTests
         run: ./gradlew :app:test --tests "*TypeServiceTest"
+
+      - name: Run MappingTests
+        run: ./gradlew :app:test --tests "*MappingServiceTest"

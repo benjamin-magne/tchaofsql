@@ -26,6 +26,20 @@ class PostgreService(private val config: PostgreConfig) {
         return columnsList
     }
 
+    fun isColumnsExist(target : String, columns : List<PostgreColumn>) : Boolean {
+        return columns.any { it.columnName == target }
+    }
+
+    fun showPgConfig() {
+        println("Adresse du serveur PostgreSQL : "+ config.host)
+        println("Port du serveur PostgreSQL : "+ config.port)
+        println("Utilisateur d'accès au serveur : "+ config.username)
+        println("Mot de passe de l'utilsateur : "+ config.password)
+        println("Base de données cible : "+ config.database)
+        println("Schéma cible : "+ config.schema)
+        println("Table cible : "+ config.table)
+    }
+
     private fun columnDataToModel(resultSet: ResultSet) : PostgreColumn {
         return PostgreColumn(
             columnName = resultSet.getString("COLUMN_NAME"),

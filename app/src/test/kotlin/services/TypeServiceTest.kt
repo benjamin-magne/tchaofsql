@@ -23,7 +23,7 @@ class TypeServiceTest {
 
     @Test
     fun should_return_null_when_impossible_conversion() {
-        //Assert : on simule une valeur impossible à convertir en Int avec le code du type Int
+        //Arrange : on simule une valeur impossible à convertir en Int avec le code du type Int
         val impossibleInt = "bonjour"
         val intCode = 4
 
@@ -33,4 +33,18 @@ class TypeServiceTest {
         //Assert : la méthode doit retourner un null
         assertEquals(null, result)
     }
+
+    /*
+    @Test
+    fun should_return_INTEGER_when_correct_code() {
+        //Arrange : on donne un code 4 (Int)
+        val intCode = 4
+
+        //Act
+        val result = typeService.getPostgreType(intCode)
+
+        //Assert : on reçoit "INTEGER"
+        assertEquals("INTEGER", result)
+    }
+     */
 }
