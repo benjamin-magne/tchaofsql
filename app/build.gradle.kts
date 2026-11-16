@@ -22,3 +22,7 @@ application {
     // (Note that Kotlin compiles `App.kt` to a class with FQN `com.example.app.AppKt`.)
     mainClass = "net.unotec.app.AppKt"
 }
+
+tasks.test {
+    useJUnitPlatform()
+}
