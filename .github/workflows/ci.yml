@@ -27,3 +27,6 @@ jobs:
 
       - name: Run XmlTests
         run: ./gradlew :app:test --tests "*XmlServiceTest"
+
+      - name: Run TypeTests
+        run: ./gradlew :app:test --tests "*TypeServiceTest"
