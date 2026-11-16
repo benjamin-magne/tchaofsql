@@ -9,6 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Grant execute permission
+        run: chmod +x ./gradlew
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
