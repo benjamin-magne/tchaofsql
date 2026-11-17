@@ -1,61 +1,49 @@
 package net.unotec.app.services
 
-import net.unotec.app.config.PostgreConfig
-import net.unotec.app.models.PostgreColumn
-import java.sql.Connection
-import java.sql.PreparedStatement
+import net.unotec.app.config.PgConfiguration
 
-class SqlBuilderService(private val config: PostgreConfig)  {
+class SqlBuilderService(private val config: PgConfiguration)  {
 
+    fun buildInsertSql(mappedColumns: Map<String, String>): String {
+        val columns = mappedColumns.values.toList()
+        require(columns.isNotEmpty()) { "Aucune colonne mappée" }
 
-    fun buildBaseScript(mappedColumns: Map<String, String>, pgColumnsList: List<PostgreColumn>) : String{
+        val columnNames = columns.joinToString(", ") { quoteIdentifier(it) }
+
+        val placeholders = List(columns.size) { "?" }.joinToString(", ")
 
         return """
-            INSERT INTO ${config.schema}.${config.table} (${columnsOnSqlFormat(mappedColumns)})
-            VALUES (${valuesOnSqlFormat(mappedColumns)})
+            INSERT INTO ${quoteIdentifier(config.schema)}.${quoteIdentifier(config.table)}
+            ($columnNames)
+            VALUES ($placeholders)
         """.trimIndent()
     }
 
-    /*
-    fun bindValues(
-        statement: PreparedStatement,
-        xmlRecord: Map<String, String>,
-        mappedColumns: Map<String, String>,
-        pgColumnsList: List<PostgreColumn>,
-        typeService: TypeService
-    ) {
-        mappedColumns.forEachIndexed { index, (xmlColumn, pgColumn) ->
+    fun buildUpsertSql(mappedColumns: Map<String, String>, conflictColumn: String): String {
+        val columns = mappedColumns.values.toList()
 
-            // 1. Récupérer la valeur XML
-            val xmlValue = xmlRecord[xmlColumn]
-                ?: error("Colonne XML introuvable : $xmlColumn")
+        require(conflictColumn in columns) { "La clé UPSERT doit être présente dans le mapping" }
 
-            // 2. Récupérer les métadonnées PostgreSQL
-            val column = pgColumnsList.find { it.name == pgColumn }
-                ?: error("Colonne PostgreSQL introuvable : $pgColumn")
+        val insertSql = buildInsertSql(mappedColumns)
 
-            // 3. Convertir la valeur XML
-            val convertedValue = typeService.convert(
-                xmlValue,
-                column.dataType
-            )
+        val updateColumns = columns.filter { it != conflictColumn }
 
-            // 4. Affecter la valeur au bon paramètre SQL
-            statement.setObject(index + 1, convertedValue)
+        val updateClause = updateColumns.joinToString(", ") {
+            val identifier = quoteIdentifier(it)
+            "$identifier = EXCLUDED.$identifier"
+        }
+
+        val conflict = quoteIdentifier(conflictColumn)
+
+        return if (updateColumns.isEmpty()) {
+            "$insertSql ON CONFLICT ($conflict) DO NOTHING"
+        } else {
+            "$insertSql ON CONFLICT ($conflict) DO UPDATE SET $updateClause"
         }
     }
-    */
 
-    fun prepareStatement(connection: Connection, sql : String) : PreparedStatement {
-        return connection.prepareStatement(sql)
+    private fun quoteIdentifier(identifier: String): String {
+        require(identifier.isNotBlank())
+        return "\"" + identifier.replace("\"", "\"\"") + "\""
     }
-
-    private fun columnsOnSqlFormat(mappedColumns: Map<String, String>) : String {
-        return mappedColumns.values.joinToString(",")
-    }
-
-    private fun valuesOnSqlFormat(mappedColumns: Map<String, String>) : String {
-        return  mappedColumns.values.joinToString(",") { "?" }
-    }
-
 }

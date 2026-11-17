@@ -1,9 +1,5 @@
 package net.unotec.app.services
 
-import java.io.File
-import java.io.InputStream
-import javax.xml.stream.Location
-import javax.xml.stream.XMLInputFactory
 import javax.xml.stream.XMLStreamConstants
 import javax.xml.stream.XMLStreamReader
 

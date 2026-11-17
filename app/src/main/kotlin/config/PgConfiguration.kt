@@ -1,6 +1,6 @@
 package net.unotec.app.config
 
-data class PostgreConfig(
+data class PgConfiguration(
     val host: String,
     val port: Int,
     val username: String,

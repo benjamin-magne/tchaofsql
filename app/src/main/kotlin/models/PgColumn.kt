@@ -1,9 +1,7 @@
 package net.unotec.app.models
 
-data class PostgreColumn(
+data class PgColumn(
     val columnName: String,
-    val columnType: String,
     val jdbcColumnType: Int,
-    val columnSize: Int,
     val columnIsNullable: String
 )
