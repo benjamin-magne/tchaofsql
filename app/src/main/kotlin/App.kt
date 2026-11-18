@@ -13,9 +13,4 @@ import net.unotec.app.services.XmlService
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main(args: Array<String>) {
 
-    val xmlService = XmlService()
-
-    var xmlServiceData = XmlServiceData()
-
-    RootCommand().subcommands(RootXmlCommand().subcommands(RootLoadXmlCommand().subcommands(LoadFileCommand(xmlService)))).main(args)
 }

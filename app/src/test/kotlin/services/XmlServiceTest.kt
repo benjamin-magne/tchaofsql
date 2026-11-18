@@ -11,8 +11,6 @@ import kotlin.io.path.writeText
 
 class XmlServiceTest {
 
-    @TempDir
-    lateinit var tempDir: Path
     val xmlService = XmlService()
 
     @Test
