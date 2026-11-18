@@ -15,6 +15,7 @@ dependencies {
     implementation("io.github.cdimascio:dotenv-kotlin:6.5.1")
     testImplementation(kotlin("test"))
     implementation("org.postgresql:postgresql:42.7.14")
+    testImplementation("io.mockk:mockk-jvm:1.14.11")
 }
 
 application {

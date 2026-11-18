@@ -31,3 +31,6 @@ jobs:
       - name: Run XmlReaderTests
         run: ./gradlew :app:test --tests "*XmlReaderServiceTest"
 
+      - name: Run simulated DatabaseServiceTests
+        run: ./gradlew :app:test --tests "*DatabaseServiceTest"
+
