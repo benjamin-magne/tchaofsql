@@ -25,11 +25,5 @@ jobs:
       - name: Grant execute permission
         run: chmod +x ./gradlew
 
-      - name: Run XmlTests
-        run: ./gradlew :app:test --tests "*XmlServiceTest"
-
-      - name: Run TypeTests
-        run: ./gradlew :app:test --tests "*TypeServiceTest"
-
-      - name: Run MappingTests
-        run: ./gradlew :app:test --tests "*MappingServiceTest"
+      - name: Run FileLoaderTests
+        run: ./gradlew :app:test --tests "*FileLoaderServiceTest"
