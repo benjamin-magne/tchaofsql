@@ -27,3 +27,7 @@ jobs:
 
       - name: Run FileLoaderTests
         run: ./gradlew :app:test --tests "*FileLoaderServiceTest"
+
+      - name: Run XmlReaderTests
+        run: ./gradlew :app:test --tests "*XmlReaderServiceTest"
+
