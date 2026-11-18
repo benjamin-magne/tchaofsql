@@ -40,3 +40,6 @@ jobs:
       - name: Run simulated PostgreWriterTests
         run: ./gradlew :app:test --tests "*PostgreWriterServiceTest"
 
+      - name: Run MapperTests
+        run: ./gradlew :app:test --tests "*MapperServiceTest"
+
