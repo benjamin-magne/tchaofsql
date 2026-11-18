@@ -37,3 +37,6 @@ jobs:
       - name: Run simulated PostgreReaderTests
         run: ./gradlew :app:test --tests "*PostgreReaderServiceTest"
 
+      - name: Run simulated PostgreWriterTests
+        run: ./gradlew :app:test --tests "*PostgreWriterServiceTest"
+
