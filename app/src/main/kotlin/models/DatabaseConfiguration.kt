@@ -1,11 +1,11 @@
 package net.unotec.app.models
 
 data class DatabaseConfiguration(
-    val host: String,
-    val port: Int,
-    val username: String,
-    val password: String,
-    val database: String,
-    val schema: String,
-    val table: String
+    var host: String,
+    var port: Int,
+    var username: String,
+    var password: String,
+    var database: String,
+    var schema: String,
+    var table: String
 )

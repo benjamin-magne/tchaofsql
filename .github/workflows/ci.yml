@@ -46,3 +46,6 @@ jobs:
       - name: Run SqlWriterTests
         run: ./gradlew :app:test --tests "*SqlWriterServiceTest"
 
+      - name: Run SessionTests
+        run: ./gradlew :app:test --tests "*SessionServiceTest"
+
