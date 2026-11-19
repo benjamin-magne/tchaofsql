@@ -1,3 +1,10 @@
 package net.unotec.app
 
-fun main() {}
+import net.unotec.app.commands.CliContext
+
+fun main() {
+    val context = CliContext()
+
+
+
+}
