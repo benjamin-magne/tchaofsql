@@ -1,4 +1,5 @@
 package net.unotec.app.commands
 
-class CliContext {
-}
+import net.unotec.app.services.SessionService
+
+class CliContext(val sessionService: SessionService = SessionService()) {}

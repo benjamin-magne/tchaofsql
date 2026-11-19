@@ -15,10 +15,7 @@ class SqlWriterService(private val connection: Connection, private val configura
         mappedRow: Map<PostgreColumnMetada, String>,
         pkColumn: String
     ): PreparedStatement {
-        val statement = try { connection.prepareStatement(baseSqlScript( mappedColumns, pkColumn)) } catch (e: SQLException) {
-            println("Erreur SQL : " + e.message)
-            throw e
-        }
+        val statement =  connection.prepareStatement(baseSqlScript( mappedColumns, pkColumn))
         bindParameters(statement, mappedColumns, mappedRow)
         return statement
     }

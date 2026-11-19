@@ -9,9 +9,7 @@ class MapperService : IMapperService {
     typealias MappedRow = Map<PostgreColumnMetada, String>
     typealias XmlRow = Map<String, String>
 
-    override fun mapColumn(xmlColumn: String, postgreColumn: PostgreColumnMetada): MappedColumn {
-        return MappedColumn(xmlColumn, postgreColumn)
-    }
+    override fun mapColumn(xmlColumn: String, postgreColumn: PostgreColumnMetada): MappedColumn { return MappedColumn(xmlColumn, postgreColumn) }
 
     override fun mapRows(xmlRow: XmlRow, mappedColumns: List<MappedColumn>): MappedRow {
         return mappedColumns.associate { mapping ->

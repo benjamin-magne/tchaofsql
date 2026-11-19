@@ -9,19 +9,14 @@ import java.sql.SQLException
 
 class DatabaseService : IDatabaseService {
     override fun connect(configuration: DatabaseConfiguration): Connection {
-        val url = "jdbc:mysql://${configuration.host}:${configuration.port}/${configuration.database}"
-        return try {
-            DriverManager.getConnection(url, configuration.username, configuration.password)
-        } catch (e: SQLException) {
-            println("Erreur de connexion à la base PostgreSQL : "+e.message)
-            throw e
-        }
+        val url = "jdbc:postgresql://${configuration.host}:${configuration.port}/${configuration.database}"
+        return DriverManager.getConnection(url, configuration.username, configuration.password)
     }
 
     override fun testConnect(configuration: DatabaseConfiguration): Boolean { return connect(configuration).isValid(5) }
 
     override fun checkConfiguration(configuration: DatabaseConfiguration): Boolean {
-        require(InetAddress.getByName(configuration.host).isReachable(2000)) { "L'hôte n'est pas joignable" }
+        require(configuration.host.isNotBlank()) { "Aucun hôte renseigné" }
         require(configuration.username.isNotBlank()) { "Aucun utilisateur renseigné" }
         require(configuration.password.isNotBlank()) { "Aucun mot de passe renseigné" }
         require(configuration.database.isNotBlank()) { "Aucune base de donnée renseigné" }

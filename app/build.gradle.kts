@@ -10,7 +10,7 @@ plugins {
 dependencies {
     // Project "app" depends on project "utils". (Project paths are separated with ":", so ":utils" refers to the top-level "utils" project.)
     implementation(project(":utils"))
-    implementation("com.github.ajalt.clikt:clikt:5.0.1")
+    implementation("info.picocli:picocli:4.7.7")
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
     implementation("io.github.cdimascio:dotenv-kotlin:6.5.1")
     testImplementation(kotlin("test"))
@@ -22,6 +22,9 @@ application {
     // Define the Fully Qualified Name for the application main class
     // (Note that Kotlin compiles `App.kt` to a class with FQN `com.example.app.AppKt`.)
     mainClass = "net.unotec.app.AppKt"
+    applicationDefaultJvmArgs = listOf(
+        "--enable-native-access=ALL-UNNAMED"
+    )
 }
 
 tasks.test {
