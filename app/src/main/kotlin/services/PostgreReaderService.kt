@@ -2,7 +2,6 @@ package net.unotec.app.services
 
 import net.unotec.app.interfaces.IPostgreReaderService
 import net.unotec.app.models.DatabaseConfiguration
-import net.unotec.app.models.PgColumn
 import net.unotec.app.models.PostgreColumnMetada
 import java.sql.Connection
 import java.sql.ResultSet

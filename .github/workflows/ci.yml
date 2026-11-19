@@ -43,3 +43,6 @@ jobs:
       - name: Run MapperTests
         run: ./gradlew :app:test --tests "*MapperServiceTest"
 
+      - name: Run SqlWriterTests
+        run: ./gradlew :app:test --tests "*SqlWriterServiceTest"
+
