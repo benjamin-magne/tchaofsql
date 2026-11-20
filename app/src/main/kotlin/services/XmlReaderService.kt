@@ -8,7 +8,7 @@ import javax.xml.stream.XMLStreamReader
 
 class XmlReaderService() : IXmlReaderService {
 
-    private val invalidColumnsList = listOf<String>("WINDEV_TABLE", "TABLE_CONTENU","N__Enr")
+    private val invalidColumnsList = listOf<String>("WINDEV_TABLE", "TABLE_CONTENU","N__Enr.")
 
     override fun loadColumns(fileInputStream: FileInputStream): Set<String> {
         val columns = mutableSetOf<String>()
