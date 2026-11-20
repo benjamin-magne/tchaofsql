@@ -1,5 +1,15 @@
 ﻿# tcHaoFSQL
 
+## Documentation
+
+| Guide | Contenu |
+| --- | --- |
+| [Installation](docs/installation.md) | Release, Java 26, configuration et dépannage |
+| [Premier import](docs/utilisation.md) | Exemple complet XML vers PostgreSQL |
+| [Référence des commandes](docs/commandes.md) | Syntaxe, options et effets sur la session |
+| [Règles d'import](docs/import.md) | Format XML, correspondances, UPSERT et transactions |
+| [Développement](docs/developpement.md) | Architecture, tests et publication des releases |
+
 ## Prérequis
 
 - **JDK Java 26**, avec la variable d'environnement `JAVA_HOME` pointant vers son dossier d'installation, sans `\bin`.
