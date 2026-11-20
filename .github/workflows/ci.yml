@@ -49,3 +49,14 @@ jobs:
       - name: Run SessionTests
         run: ./gradlew :app:test --tests "*SessionServiceTest"
 
+      - name: Run all tests and build ZIP distribution
+        run: ./gradlew :app:test :app:distZip
+
+      - name: Upload ZIP distribution
+        uses: actions/upload-artifact@v4
+        with:
+          name: tchaofsql-${{ github.sha }}
+          path: app/build/distributions/*.zip
+          if-no-files-found: error
+          retention-days: 30
+

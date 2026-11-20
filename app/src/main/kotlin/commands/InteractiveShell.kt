@@ -1,7 +1,8 @@
-package net.unotec.app.commands
+﻿package net.unotec.app.commands
 
 import org.jline.reader.EndOfFileException
 import org.jline.reader.LineReaderBuilder
+import org.jline.reader.SyntaxError
 import org.jline.reader.UserInterruptException
 import org.jline.terminal.TerminalBuilder
 import java.nio.charset.StandardCharsets
@@ -21,11 +22,14 @@ class InteractiveShell(private val factory: CommandFactory) {
 
                     val arguments = reader.parser.parse(input, input.length).words().toTypedArray()
 
+                    factory.create().execute(*arguments)
 
                 } catch (e: UserInterruptException) {
                     continue
                 } catch (e: EndOfFileException) {
                     break
+                } catch (e: SyntaxError) {
+                    println(e.message)
                 }
             }
         }
