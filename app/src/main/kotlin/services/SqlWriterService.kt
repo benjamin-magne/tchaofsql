@@ -9,6 +9,7 @@ import java.sql.PreparedStatement
 import java.sql.SQLException
 
 class SqlWriterService(private val connection: Connection, private val configuration: DatabaseConfiguration) : ISqlWriterService {
+    private val valueConverter = PostgreValueConverter()
 
     override fun prepareUpsertStatement(
         mappedColumns: List<MappedColumn>,
@@ -16,7 +17,12 @@ class SqlWriterService(private val connection: Connection, private val configura
         pkColumn: String
     ): PreparedStatement {
         val statement =  connection.prepareStatement(baseSqlScript( mappedColumns, pkColumn))
-        bindParameters(statement, mappedColumns, mappedRow)
+        try {
+            bindParameters(statement, mappedColumns, mappedRow)
+        } catch (error: Exception) {
+            try { statement.close() } catch (closeError: Exception) { error.addSuppressed(closeError) }
+            throw error
+        }
         return statement
     }
 
@@ -50,7 +56,7 @@ class SqlWriterService(private val connection: Connection, private val configura
 
     private fun bindParameters(statement: PreparedStatement, mappedColumns: List<MappedColumn>, mappedRow: Map<PostgreColumnMetada, String>) {
         mappedColumns.forEachIndexed { index, column ->
-            val value = mappedRow[column.postgreColumn]
+            val value = valueConverter.convert(mappedRow[column.postgreColumn], column.postgreColumn)
             val jdbcCode = column.postgreColumn.jdbcType
             try { statement.setObject(index + 1, value, jdbcCode) } catch (e: Exception) {
                 println("Erreur SQL : " + e.message)

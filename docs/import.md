@@ -32,7 +32,9 @@ Une correspondance relie une colonne XML sélectionnée à une colonne PostgreSQ
 
 Une colonne PostgreSQL sans correspondance peut recevoir une valeur explicite par `pg defaults add`. Cette valeur est envoyée pour chaque ligne. Les colonnes sans correspondance ni valeur explicite sont omises de l'INSERT : PostgreSQL applique son défaut ou vérifie ses contraintes. Lors d'une mise à jour, seules les colonnes envoyées, hors clé, sont modifiées.
 
-Les valeurs sont liées aux paramètres JDBC avec le type de la colonne cible. Aucune transformation métier configurable n'est proposée : dates, nombres et autres valeurs doivent être acceptables par le pilote et PostgreSQL.
+Les valeurs sont liées aux paramètres JDBC avec le type de la colonne cible. Pour les colonnes date-heure (`TIMESTAMP` ou `TIMESTAMP_WITH_TIMEZONE` JDBC), les DateHeure WinDev au format `jj/MM/aaaa HH:mm:ss` sont converties avant l'envoi : `01/08/2026 11:50:00` devient `2026-08-01 11:50:00`. Les dates et heures impossibles sont rejetées avec le nom de la colonne. Cette règle s'applique aussi aux valeurs explicites définies par `pg defaults add`.
+
+Les valeurs déjà au format ISO restent inchangées, de même que les colonnes texte. La source WinDev ne fournit aucun fuseau : la conversion n'en ajoute pas. Pour une cible avec fuseau, l'interprétation reste celle du pilote et de la connexion PostgreSQL. Les autres conversions sont effectuées par le pilote et PostgreSQL.
 
 ## Clé et UPSERT
 
